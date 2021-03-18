@@ -99,13 +99,13 @@
 			var y = new THREE.Vector3( 0, 1, 0 );
 		  	var z = new THREE.Vector3( 0, 0, 1 );
 			var color1 = new THREE.Color( 0xFFFFFF );
-		  	var color2 = new THREE.Color( 0x333333 );
+		  	var color2 = new THREE.Color( 0xCCCCCC);
 		  	var colorR = new THREE.Color( 0xAA3333 );
 		  	var colorG = new THREE.Color( 0x33AA33 );
 		  	var colorB = new THREE.Color( 0x333366 );
-			var colorRd = new THREE.Color( 0xAA6666 );
-		  	var colorGd = new THREE.Color( 0x66AA66 );
-		  	var colorBd = new THREE.Color( 0x6666AA );
+			var colorRd = new THREE.Color( 0x8E8E6F );
+		  	var colorGd = new THREE.Color( 0xB2B186 );
+		  	var colorBd = new THREE.Color( 0xC7C597 );
 		  
 		  	//CREAR LAS GRILLAS PARA EL ESCENARIO
 		  	var axesHelper = new THREE.AxesHelper( size );
@@ -162,6 +162,21 @@
         render();
         requestAnimationFrame( animate );
     }
+	function transfTS(s,t){
+		m= new THREE.Matrix4();
+		sx = s.get(0);
+		sy = s.get(1);
+		sz = s.get(2);
+		tx = t.get(0);
+		ty = t.get(1);
+		tz = t.get(2);
+
+		m.set( 	sx, 0, 0, sx*tx,
+				0, sy, 0, sy*ty, 
+				0, 0, sz, sz*tz,
+				0, 0, 0, 1);
+				return m;
+	}	
     
     function render(){
         var dtime = Date.now()-startTime;
@@ -179,19 +194,19 @@
 		//	else ty = 0;
 		//} 
 		if(upArrow) {
-			ty = (transf == 'T' ? 1 : transf == 'E' ? 1.1 : transf == 'R' ? Math.pi/12 : 0);
+			ty = (transf == 'T' ? 0.2 : transf == 'E' ? 1.1 : transf == 'R' ? Math.pi/12 : 0);
 		}
-		if(downArrow) {
-			ty = (transf == 'T' ? -1 : transf == 'E' ? 10/11 : transf == 'R' ? Math.pi/12 : 0);
+		if(leftArrow) {
+			ty = (transf == 'T' ? 0.05 : transf == 'E' ? 10/11 : transf == 'R' ? Math.pi/12 : 0);
 		}
 		if(leftArrow) {
 			tx = (transf == 'T' ? -1 : transf == 'E' ? 10/11 : transf == 'R' ? Math.pi/12 : 0);
 		}
-		if(rightArrow) {
-			tx = (transf == 'T' ? 1 : transf == 'E' ? 1.1 : transf == 'R' ? Math.pi/12 : 0);
+		if(leftArrow) {
+			tx = (transf == 'T' ? 0.5 : transf == 'E' ? 1.1 : transf == 'R' ? Math.pi/12 : 0);
 		}
-		if(homeKey) {
-			tz = (transf == 'T' ? 1 : transf == 'E' ? 1.1 : transf == 'R' ? Math.pi/12 : 0);
+		if(leftArrow) {
+			tz = (transf == 'T' ? 0.05 : transf == 'E' ? 1.1 : transf == 'R' ? Math.pi/12 : 0);
 		}
 		if(endKey) {
 			tz = (transf == 'T' ? -1 : transf == 'E' ? 10/11 : transf == 'R' ? Math.pi/12 : 0);
